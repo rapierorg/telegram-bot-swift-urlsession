@@ -10,13 +10,13 @@ public class URLSessionRequestProvider: RequestProvider {
         request.httpBody = requestData
         
         urlSession.dataTask(with: request) { (data, response, error) in
-            guard error != nil, let response = response as? HTTPURLResponse else {
+            guard error == nil, let httpResponse = response as? HTTPURLResponse else {
                 completion(nil, .wrapperError(code: 0, message: error.debugDescription))
                 return
             }
             
-            guard response.statusCode == 200 else {
-                completion(nil, .invalidStatusCode(statusCode: response.statusCode, data: data))
+            guard httpResponse.statusCode == 200 else {
+                completion(nil, .invalidStatusCode(statusCode: httpResponse.statusCode, data: data))
                 return
             }
             
@@ -28,6 +28,6 @@ public class URLSessionRequestProvider: RequestProvider {
             }
             
             completion(data, nil)
-        }.resume()
+            }.resume()
     }
 }
