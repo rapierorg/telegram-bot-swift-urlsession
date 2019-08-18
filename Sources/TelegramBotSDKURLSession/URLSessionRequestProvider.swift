@@ -3,7 +3,7 @@ import TelegramBotSDKRequestProvider
 
 public class URLSessionRequestProvider: RequestProvider {
     public static func doRequest(endpointUrl: URL, contentType: String, requestData: Data, completion: @escaping RequestCompletion) {
-        let urlSession = URLSession(configuration: URLSessionConfiguration.ephemeral)
+        let urlSession = URLSession(configuration: URLSessionConfiguration.default)
         
         var request = URLRequest(url: endpointUrl)
         request.httpMethod = "POST"
